@@ -437,23 +437,38 @@
         const NOTIF_APPSCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQ6bKhdYmnsG18m-F65C8CWKFEtqc_f6xfv0JU6VD9O0GwHlNJhDzcgku4LMH0FX-GEw/exec"; 
 
         // === 1. SYSTEM LOGIC (DASHBOARD) ===
-        window.addEventListener('load', function() {
-		    const storedUser = localStorage.getItem('yanoshiUser');
+        //window.addEventListener('load', function() {
+		    //const storedUser = localStorage.getItem('yanoshiUser');
+		    //const loader = document.getElementById('initial-loader');
+		
+		    //setTimeout(() => {
+		        //loader.classList.add('opacity-0');
+		        //setTimeout(() => {
+		            //loader.classList.add('hidden');
+		            //if (storedUser) {
+		                //showDashboard(storedUser);
+		            //} else {
+		                //showLogin();
+		            //}
+		        //}, 500); 
+		    //}, 800); 
+		
+		    //calc_populateDropdown(); 
+		//});
+
+		window.addEventListener('load', function() {
+		    const storedUser = localStorage.getItem('yanoshiUser') || 'Admin';
 		    const loader = document.getElementById('initial-loader');
 		
 		    setTimeout(() => {
 		        loader.classList.add('opacity-0');
 		        setTimeout(() => {
 		            loader.classList.add('hidden');
-		            if (storedUser) {
-		                showDashboard(storedUser);
-		            } else {
-		                showLogin();
-		            }
-		        }, 500); 
-		    }, 800); 
+		            showDashboard(storedUser);   // selalu langsung ke dashboard
+		        }, 500);
+		    }, 800);
 		
-		    calc_populateDropdown(); 
+		    calc_populateDropdown();
 		});
 
         // ======== FUNGSI BARU: TARIK NOTIFIKASI ========
@@ -543,18 +558,28 @@
             });
         }
 
-        function showDashboard(username) { 
-            document.getElementById('login-section').classList.add('hidden'); 
-            document.getElementById('dashboard-section').classList.remove('hidden'); 
-            document.getElementById('dashboard-section').classList.add('flex'); 
-            document.getElementById('display-username').textContent = username; 
+        //function showDashboard(username) { 
+            //document.getElementById('login-section').classList.add('hidden'); 
+            //document.getElementById('dashboard-section').classList.remove('hidden'); 
+            //document.getElementById('dashboard-section').classList.add('flex'); 
+            //document.getElementById('display-username').textContent = username; 
             
             // Panggil notifikasi saat dashboard terbuka
-            fetchNotifications();
-        }
+            //fetchNotifications();
+        //}
+
+		function showDashboard(username) {
+		    document.getElementById('dashboard-section').classList.remove('hidden');
+		    document.getElementById('dashboard-section').classList.add('flex');
+		    document.getElementById('display-username').textContent = username;
+		    fetchNotifications();
+		}
         
-        function showLogin() { document.getElementById('login-section').classList.remove('hidden'); document.getElementById('dashboard-section').classList.add('hidden'); document.getElementById('dashboard-section').classList.remove('flex'); }
-        function handleLogout() { if(confirm('Keluar?')) { localStorage.removeItem('yanoshiUser'); location.reload(); } }
+        //function showLogin() { document.getElementById('login-section').classList.remove('hidden'); document.getElementById('dashboard-section').classList.add('hidden'); document.getElementById('dashboard-section').classList.remove('flex'); }
+
+		function showLogin() { /* login dinonaktifkan */ }
+		
+		function handleLogout() { if(confirm('Keluar?')) { localStorage.removeItem('yanoshiUser'); location.reload(); } }
         function toggleDropdown() { const m = document.getElementById('user-dropdown'); m.classList.toggle('dropdown-hidden'); m.classList.toggle('dropdown-visible'); }
         window.onclick = function(e) { if(!e.target.closest('.relative')) { document.getElementById('user-dropdown').classList.add('dropdown-hidden'); document.getElementById('user-dropdown').classList.remove('dropdown-visible'); } }
         
