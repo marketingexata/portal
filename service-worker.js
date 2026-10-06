@@ -1,4 +1,4 @@
-const CACHE_NAME = 'yanoshi-portal-v5';
+const CACHE_NAME = 'yanoshi-portal-v6';
 const urlsToCache = [
   './index.html',
   './manifest.json',
